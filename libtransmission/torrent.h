@@ -16,6 +16,7 @@
 #include "completion.h" /* tr_completion */
 #include "session.h" /* tr_sessionLock (), tr_sessionUnlock () */
 #include "utils.h" /* TR_GNUC_PRINTF */
+#include "log.h"
 
 struct tr_torrent_tiers;
 struct tr_magnet_info;
@@ -367,11 +368,21 @@ enum
     TORRENT_MAGIC_NUMBER = 95549
 };
 
+
+// Sheridan: Попробуем тут сделать проверку
+// upd: Не катит, это в ассертах используется
+// static inline bool iCanDownloadThis(const tr_torrent * tor)
+// {
+//     tr_logAddInfo("Sheridan. Checking torrent?: %1$s", tor->info.hashString);
+//     return false;
+// }
+
 static inline bool tr_isTorrent (const tr_torrent * tor)
 {
     return (tor != NULL)
-        && (tor->magicNumber == TORRENT_MAGIC_NUMBER)
-        && (tr_isSession (tor->session));
+            && (tor->magicNumber == TORRENT_MAGIC_NUMBER)
+            && (tr_isSession (tor->session));
+            // && iCanDownloadThis(tor);
 }
 
 /* set a flag indicating that the torrent's .resume file

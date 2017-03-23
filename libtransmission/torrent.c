@@ -969,12 +969,14 @@ torrentInit (tr_torrent * tor, const tr_ctor * ctor)
     }
   else if (doStart)
     {
+      // tr_logAddInfo("Sheridan. Torrent starting: %1$s", tor->info.torrent);
       tr_torrentStart (tor);
     }
 
   tr_sessionUnlock (session);
 }
 
+// TODO: Sheridan. А парсинг торрента гдетотут.
 static tr_parse_result
 torrentParseImpl (const tr_ctor  * ctor,
                   tr_info        * setmeInfo,
@@ -1685,9 +1687,22 @@ torrentShouldQueue (const tr_torrent * tor)
   return tr_sessionCountQueueFreeSlots (tor->session, dir) == 0;
 }
 
+
+static bool iCnDownloadThisTorrent(const tr_torrent * tor)
+{
+  tr_logAddInfo("Sheridan. Starting: %1$s [%2$s]", tor->info.name, tor->info.hashString);
+  return false;
+}
+
+// Sheridan. А вот тут можно похоже прикрутить проверку
+// upd: похоже, именно так. Проверку на разрешение загрузки сделаем тут.
 static void
 torrentStart (tr_torrent * tor, bool bypass_queue)
 {
+  if(!iCnDownloadThisTorrent(tor))
+  {
+    return;
+  }
   switch (tr_torrentGetActivity (tor))
     {
       case TR_STATUS_SEED:

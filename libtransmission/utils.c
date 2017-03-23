@@ -231,7 +231,7 @@ tr_loadFile (const char  * path,
   tr_error * my_error = NULL;
   const char * const err_fmt = _("Couldn't read \"%1$s\": %2$s");
 
-  tr_logAddInfo("Sheridan: torrent loading: %1$s", path);
+  tr_logAddInfo("Sheridan. File loading: %1$s", path);
 
   /* try to stat the file */
   if (!tr_sys_path_get_info (path, 0, &info, &my_error))
@@ -275,6 +275,7 @@ tr_loadFile (const char  * path,
   tr_sys_file_close (fd, NULL);
   buf[info.size] = '\0';
   *size = info.size;
+  // tr_logAddInfo("Sheridan. File content: %1$s", buf);
   return buf;
 }
 

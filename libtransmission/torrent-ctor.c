@@ -10,6 +10,7 @@
 
 #include "transmission.h"
 #include "file.h"
+#include "log.h"
 #include "magnet.h"
 #include "session.h" /* tr_sessionFindTorrentFile () */
 #include "torrent.h" /* tr_ctorGetSave () */
@@ -135,6 +136,7 @@ tr_ctorSetMetainfoFromFile (tr_ctor *    ctor,
     int       err;
 
     metainfo = tr_loadFile (filename, &len, NULL);
+    //tr_logAddInfo("Sheridan. Metainfo raw: %1$s", metainfo);
     if (metainfo && len)
         err = tr_ctorSetMetainfo (ctor, metainfo, len);
     else
@@ -155,6 +157,7 @@ tr_ctorSetMetainfoFromFile (tr_ctor *    ctor,
             if (!tr_variantDictFindStr (info, TR_KEY_name_utf_8, &name, NULL))
                 if (!tr_variantDictFindStr (info, TR_KEY_name, &name, NULL))
                     name = NULL;
+            tr_logAddInfo("Sheridan. Name: %1$s", name);
             if (!name || !*name)
             {
                 char * base = tr_sys_path_basename (filename, NULL);
