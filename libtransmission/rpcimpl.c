@@ -1698,6 +1698,7 @@ fileListFromList (tr_variant * list, tr_file_index_t * setmeCount)
   return files;
 }
 
+// Sheridan, Тут, похоже, добавляется торрент из файла\ссылки
 static const char*
 torrentAdd (tr_session               * session,
             tr_variant               * args_in,
