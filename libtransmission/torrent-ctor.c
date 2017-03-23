@@ -102,6 +102,7 @@ tr_ctorGetSourceFile (const tr_ctor * ctor)
     return ctor->sourceFile;
 }
 
+// Sheridan Тут наверное загрузка торрента из магнита
 int
 tr_ctorSetMetainfoFromMagnetLink (tr_ctor * ctor, const char * magnet_link)
 {
@@ -126,7 +127,7 @@ tr_ctorSetMetainfoFromMagnetLink (tr_ctor * ctor, const char * magnet_link)
 
     return err;
 }
-
+// Sheridan Тут наверное загрузка торрента из файла
 int
 tr_ctorSetMetainfoFromFile (tr_ctor *    ctor,
                             const char * filename)

@@ -1228,6 +1228,7 @@ tr_variantToFile (const tr_variant  * v,
       uint64_t nleft;
 
       /* save the variant to a temporary file */
+      // Sheridan: Сохранение тут
       {
         struct evbuffer * buf = tr_variantToBuf (v, fmt);
         const char * walk = (const char *) evbuffer_pullup (buf, -1);
@@ -1302,6 +1303,7 @@ tr_variantFromFile (tr_variant      * setme,
   buf = tr_loadFile (filename, &buflen, error);
   if (buf != NULL)
     {
+      tr_logAddInfo("Sheridan. File loading: %1$s", filename);
       if (tr_variantFromBuf (setme, fmt, buf, buflen, filename, NULL) == 0)
         ret = true;
       else
@@ -1313,6 +1315,9 @@ tr_variantFromFile (tr_variant      * setme,
   return ret;
 }
 
+// Sheridan. Вот тут файл читается. 
+// Точнее, сюда приходит буфер с прочитанным и парсится в зависимости от содержания
+// Сюда приходит всё. Анонсы, торрент-файлы, json с настройками....
 int
 tr_variantFromBuf (tr_variant      * setme,
                    tr_variant_fmt    fmt,
@@ -1323,6 +1328,8 @@ tr_variantFromBuf (tr_variant      * setme,
 {
   int err;
   struct locale_context locale_ctx;
+
+  // tr_logAddInfo("Sheridan. Incoming buffer: %1$s", setme->type ? setme->type : "NULL");
 
   /* parse with LC_NUMERIC="C" to ensure a "." decimal separator */
   use_numeric_locale (&locale_ctx, "C");
@@ -1335,6 +1342,7 @@ tr_variantFromBuf (tr_variant      * setme,
         break;
 
       default /* TR_VARIANT_FMT_BENC */:
+        // tr_logAddInfo("Sheridan. Buffer loading: %1$s", buf);
         err = tr_variantParseBenc (buf, ((const char*)buf)+buflen, setme, setme_end);
         break;
     }

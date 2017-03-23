@@ -312,6 +312,7 @@ format_tos (int value)
     }
 }
 
+// Sheridan: Тут и ниже смотреть как работать с настройками
 void
 tr_sessionGetDefaultSettings (tr_variant * d)
 {

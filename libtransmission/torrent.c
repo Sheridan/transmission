@@ -1691,11 +1691,12 @@ torrentShouldQueue (const tr_torrent * tor)
 static bool iCnDownloadThisTorrent(const tr_torrent * tor)
 {
   tr_logAddInfo("Sheridan. Starting: %1$s [%2$s]", tor->info.name, tor->info.hashString);
-  return false;
+  return true;
 }
 
 // Sheridan. А вот тут можно похоже прикрутить проверку
 // upd: похоже, именно так. Проверку на разрешение загрузки сделаем тут.
+// upd: не, всетаки не тут. Нужно шифрование. Тут разве что проверку на момент загрузки...
 static void
 torrentStart (tr_torrent * tor, bool bypass_queue)
 {
