@@ -642,7 +642,12 @@ main (int argc, char ** argv)
   g_set_application_name (_("Transmission"));
 
   /* parse the command line */
-  option_context = g_option_context_new (_("[torrent files or urls]"));
+  option_context = 
+  #ifdef WITH_FILEOP
+                  g_option_context_new (_("[torrent files or urls]"));
+            #else 
+                  g_option_context_new (_("[urls]"));
+            #endif
   g_option_context_add_main_entries (option_context, option_entries, GETTEXT_PACKAGE);
   g_option_context_add_group (option_context, gtk_get_option_group (FALSE));
   g_option_context_set_translation_domain (option_context, GETTEXT_PACKAGE);

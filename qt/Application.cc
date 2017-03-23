@@ -59,7 +59,12 @@ namespace
   getUsage ()
   {
     return "Usage:\n"
-           "  transmission [OPTIONS...] [torrent files]";
+           "  transmission [OPTIONS...]"
+            #ifdef WITH_FILEOP
+                  " [torrent files]";
+            #else 
+              "";
+            #endif
   }
 
   enum

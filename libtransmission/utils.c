@@ -217,7 +217,7 @@ tr_timerAddMsec (struct event * timer, int msec)
 }
 
 /**
-***
+*** TODO: Sheridan: похоже, что файл загружается тут
 **/
 
 uint8_t *
@@ -230,6 +230,8 @@ tr_loadFile (const char  * path,
   tr_sys_file_t fd;
   tr_error * my_error = NULL;
   const char * const err_fmt = _("Couldn't read \"%1$s\": %2$s");
+
+  tr_logAddInfo("Sheridan: torrent loading: %1$s", path);
 
   /* try to stat the file */
   if (!tr_sys_path_get_info (path, 0, &info, &my_error))

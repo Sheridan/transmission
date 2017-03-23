@@ -101,7 +101,13 @@ getUsage (void)
 {
   return "A fast and easy BitTorrent client\n"
          "\n"
-         "Usage: " MY_READABLE_NAME " [options] <file|url|magnet>";
+         "Usage: " MY_READABLE_NAME " [options] <"
+         #ifdef WITH_FILEOP
+                  "file"
+            #else 
+              ""
+            #endif
+            "|url|magnet>";
 }
 
 static int parseCommandLine (tr_variant*, int argc, const char ** argv);
